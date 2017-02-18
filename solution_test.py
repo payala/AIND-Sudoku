@@ -2,6 +2,31 @@ import solution
 import unittest
 
 
+class TestXWing(unittest.TestCase):
+    before_x_wing_1 = solution.eliminate(solution.grid_values(
+        '.....7..6...2..5....613.79.63194..5729.76..8374.325169..261...8..3.796.59.78..3.4'
+    ))
+
+    possible_solutions_1 = [
+        {'A1': '1358', 'A2': '1258', 'A3': '4589', 'A4': '45', 'A5': '89', 'A6': '7', 'A7': '248', 'A8': '1234',
+         'A9': '6', 'B1': '138', 'B2': '178', 'B3': '489', 'B4': '2', 'B5': '89', 'B6': '68', 'B7': '5', 'B8': '134',
+         'B9': '1', 'C1': '458', 'C2': '258', 'C3': '6', 'C4': '1', 'C5': '3', 'C6': '48', 'C7': '7', 'C8': '9',
+         'C9': '2', 'D1': '6', 'D2': '3', 'D3': '1', 'D4': '9', 'D5': '4', 'D6': '8', 'D7': '2', 'D8': '5', 'D9': '7',
+         'E1': '2', 'E2': '9', 'E3': '5', 'E4': '7', 'E5': '6', 'E6': '1', 'E7': '4', 'E8': '8', 'E9': '3', 'F1': '7',
+         'F2': '4', 'F3': '8', 'F4': '3', 'F5': '2', 'F6': '5', 'F7': '1', 'F8': '6', 'F9': '9', 'G1': '45', 'G2': '5',
+         'G3': '2', 'G4': '6', 'G5': '1', 'G6': '34', 'G7': '9', 'G8': '7', 'G9': '8', 'H1': '18', 'H2': '18',
+         'H3': '3', 'H4': '4', 'H5': '7', 'H6': '9', 'H7': '6', 'H8': '12', 'H9': '5', 'I1': '9', 'I2': '16', 'I3': '7',
+         'I4': '8', 'I5': '5', 'I6': '2', 'I7': '3', 'I8': '12', 'I9': '4'}
+        ]
+
+    def test_x_wing(self):
+        discarded_val = '4'
+        discarded_boxes = solution.cross('ABDEFHI', '16')
+        sol = solution.x_wing(self.before_x_wing_1)
+        for box in discarded_boxes:
+            self.assertTrue(discarded_val not in sol[box])
+
+
 class TestNakedTwins(unittest.TestCase):
     before_naked_twins_1 = {'I6': '4', 'H9': '3', 'I2': '6', 'E8': '1', 'H3': '5', 'H7': '8', 'I7': '1', 'I4': '8',
                             'H5': '6', 'F9': '7', 'G7': '6', 'G6': '3', 'G5': '2', 'E1': '8', 'G3': '1', 'G2': '8',
@@ -74,7 +99,6 @@ class TestNakedTwins(unittest.TestCase):
     def test_naked_twins2(self):
         self.assertTrue(solution.naked_twins(self.before_naked_twins_2) in self.possible_solutions_2,
                         "Your naked_twins function produced an unexpected board.")
-
 
 
 class TestDiagonalSudoku(unittest.TestCase):
